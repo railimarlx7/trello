@@ -81,7 +81,7 @@ export function initializeBoardAndList(
     "Board",
     apiKey,
     apiToken,
-    Cypress.env('CYPRESS_ORG_ID')
+    Cypress.env("organizationID")
   ).then(() => {
     const boardId = TestState.getInstance().getBoardId();
     if (boardId) {

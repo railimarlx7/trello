@@ -3,8 +3,8 @@ import { TrelloApi } from "../support/trelloApi";
 import TestState from "../support/testState";
 
 describe("Trello API - Create List", () => {
-  const apiKey = Cypress.env('CYPRESS_API_KEY');
-  const apiToken = Cypress.env('CYPRESS_API_TOKEN');
+  const apiKey = Cypress.env("apiKey");
+  const apiToken = Cypress.env("apiToken");
 
   before(() => {
     // Assegurar que o board esteja presente
@@ -12,7 +12,7 @@ describe("Trello API - Create List", () => {
       "Board",
       apiKey,
       apiToken,
-      Cypress.env('CYPRESS_ORG_ID')
+      Cypress.env("organizationID")
     );
   });
 

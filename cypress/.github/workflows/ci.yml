@@ -1,0 +1,43 @@
+name: ci
+on: [push]
+jobs:
+  tests:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout 🛎
+        uses: actions/checkout@v3
+
+      - name: Install Dependencies
+        run: yarn
+
+      - name: Cypress run 🚀
+        run: yarn test
+
+      - name: Save screenshots 🖼
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots
+
+  create-pull-request:
+    runs-on: ubuntu-20.04
+    needs: tests
+    if: success()  # Only run this job if the tests job was successful
+    steps:
+      - name: Checkout 🛎
+        uses: actions/checkout@v3
+
+      - name: Setup GitHub CLI
+        uses: github-cli-action/setup-gh-cli@v2
+
+      - name: Create Pull Request
+        run: |
+          gh auth login --with-token <<< ${{ secrets.GITHUB_TOKEN }}
+          gh pr create \
+            --base main \
+            --head ${{ github.ref }} \
+            --title "Automated Pull Request from ${{ github.ref }}" \
+            --body "This pull request was automatically created by GitHub Actions after successful tests."
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -1,36 +1,19 @@
-name: Cypress Tests
-
-on:
-  push:
-    branches:
-      - main
-
+name: ci
+on: [push]
 jobs:
-  cypress-run:
-    runs-on: ubuntu-latest
-
+  tests:
+    runs-on: ubuntu-20.04
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+      - name: Checkout 🛎
+        uses: actions/checkout@v3
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '16'
-
-      - name: Install dependencies
-        run: yarn install
-
-      - name: Run Cypress tests
-        env:
-          CYPRESS_API_KEY: ${{ secrets.CYPRESS_API_KEY }}
-          CYPRESS_API_TOKEN: ${{ secrets.CYPRESS_API_TOKEN }}
-          CYPRESS_ORGANIZATION_ID: ${{ secrets.CYPRESS_ORG_ID }}
-        run: yarn cy:run
-
-      - name: Upload test results
+      - name: Cypress Run 🚀
+        uses: cypress-io/github-action@v3
+        
+      - name: Save screenshots 🖼
+        uses: actions/upload-artifact@v3
+        
         if: always()
-        uses: actions/upload-artifact@v2
         with:
-          name: cypress-results
-          path: cypress/results
+          name: cypress-screenshots
+          path: cypress/screenshots
