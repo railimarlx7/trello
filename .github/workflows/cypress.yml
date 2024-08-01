@@ -25,7 +25,7 @@ jobs:
         env:
           CYPRESS_API_KEY: ${{ secrets.CYPRESS_API_KEY }}
           CYPRESS_API_TOKEN: ${{ secrets.CYPRESS_API_TOKEN }}
-          CYPRESS_ORGANIZATION_ID: ${{ secrets.CYPRESS_ORG_ID }}
+          CYPRESS_ORG_ID: ${{ secrets.CYPRESS_ORG_ID }}
         run: yarn test
 
       - name: Upload test results

@@ -12,14 +12,11 @@ describe('Trello API - Create Board', () => {
     const boardName = 'Trello Board';
 
     TrelloApi.createBoard(apiKey, apiToken, boardName, organizationID).then((response) => {
-      const responseBody: Board = response.body;
       expect(response.status).to.eq(200);
-      expect(responseBody.name).to.eq(boardName);
+      expect(response.body.name).to.eq(boardName);
 
       // Armazenar o ID do board no TestState
-      const boardId = responseBody.id;
-      TestState.getInstance().setBoardId(boardId);
-      cy.log(`Board ID armazenado: ${boardId}`);
+      TestState.getInstance().setBoardId(response.body.id);
     });
   });
 });

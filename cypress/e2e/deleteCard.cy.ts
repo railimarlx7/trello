@@ -16,12 +16,9 @@ describe("Trello API - Delete All Cards", () => {
     const listId = TestState.getInstance().getListId();
 
     if (!listId) {
-      throw new Error(
-        "List ID não encontrado. Certifique-se de que a lista foi criada corretamente."
-      );
+      throw new Error("List ID não encontrado.");
     }
 
-    // Iniciar o processo de exclusão de todos os cards
     deleteAllCards(apiKey, apiToken, listId);
   });
 });
