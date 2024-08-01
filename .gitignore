@@ -19,6 +19,7 @@ cypress/downloads/
 .env
 .cypress.env.json
 
+
 # Arquivos de sistema e do editor
 .DS_Store
 Thumbs.db
