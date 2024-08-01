@@ -3,12 +3,12 @@ import { TrelloApi } from '../support/trelloApi';
 import TestState from '../support/testState';
 
 describe('Trello API - Create Card', () => {
-  const apiKey = Cypress.env('apiKey');
-  const apiToken = Cypress.env('apiToken');
+  const apiKey = Cypress.env('CYPRESS_API_KEY');
+  const apiToken = Cypress.env('CYPRESS_API_TOKEN');
 
   before(() => {
     // Assegurar que o board e a list estejam presentes
-    fetchOrCreateResource('Board', apiKey, apiToken, Cypress.env('organizationID'))
+    fetchOrCreateResource('Board', apiKey, apiToken, Cypress.env('CYPRESS_ORG_ID'))
       .then(() => {
         const boardId = TestState.getInstance().getBoardId();
         return fetchOrCreateResource('List', apiKey, apiToken, boardId!);

@@ -30,7 +30,7 @@ export class TrelloApi {
   static readBoards(apiKey: string, apiToken: string): Cypress.Chainable<any> {
     return this.createResource(
       'GET',
-      `/organizations/${Cypress.env('organizationID')}/boards`,
+      `/organizations/${Cypress.env('CYPRESS_ORG_ID')}/boards`,
       apiKey,
       apiToken
     );
