@@ -4,8 +4,13 @@ jobs:
   tests:
     runs-on: ubuntu-20.04
     steps:
+<<<<<<< HEAD
       - name: Cypress run 🚀
         uses: cypress-io/github-action@v3
+=======
+      - name: Checkout 🛎
+        uses: actions/checkout@v3
+>>>>>>> 44b5109 (resolve conflicts)
         
       - name: Save screenshots 🖼
         uses: actions/upload-artifact@v3
