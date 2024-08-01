@@ -11,13 +11,30 @@ jobs:
         run: yarn
 
       - name: Cypress run 🚀
-        uses: yarn test
- 
-        
+        run: yarn test
+
       - name: Save screenshots 🖼
         uses: actions/upload-artifact@v3
-        
         if: always()
         with:
           name: cypress-screenshots
           path: cypress/screenshots
+
+  merge:
+    runs-on: ubuntu-20.04
+    needs: tests
+    if: success()  # Only run this job if the tests job was successful
+    steps:
+      - name: Checkout 🛎
+        uses: actions/checkout@v3
+
+      - name: Merge to main
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git checkout main
+          git pull origin main
+          git merge ${{ github.ref }}
+          git push origin main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
