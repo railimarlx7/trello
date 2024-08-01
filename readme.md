@@ -1,6 +1,4 @@
 
-# Título do Projeto
-
 # Projeto Trello
 
 ## Pré-requisitos
