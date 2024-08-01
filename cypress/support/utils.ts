@@ -1,6 +1,7 @@
 import { TrelloApi } from "./trelloApi";
 import TestState from "./testState";
 
+// Função para buscar ou criar um recurso e armazenar o ID
 export function fetchOrCreateResource(
   resourceType: "Board" | "List" | "Card",
   apiKey: string,
@@ -20,7 +21,8 @@ export function fetchOrCreateResource(
             "Default Board",
             identifier
           ).then((createResponse) => {
-            TestState.getInstance().setBoardId(createResponse.body.id);
+            const boardId = createResponse.body.id;
+            TestState.getInstance().setBoardId(boardId);
           });
         }
       });
@@ -38,7 +40,8 @@ export function fetchOrCreateResource(
               "Default List",
               identifier
             ).then((createResponse) => {
-              TestState.getInstance().setListId(createResponse.body.id);
+              const listId = createResponse.body.id;
+              TestState.getInstance().setListId(listId);
             });
           }
         }
@@ -57,7 +60,8 @@ export function fetchOrCreateResource(
               identifier,
               "Default Card"
             ).then((createResponse) => {
-              TestState.getInstance().setCardId(createResponse.body.id);
+              const cardId = createResponse.body.id;
+              TestState.getInstance().setCardId(cardId);
             });
           }
         }
@@ -77,13 +81,15 @@ export function initializeBoardAndList(
     "Board",
     apiKey,
     apiToken,
-    Cypress.env('CYPRESS_ORG_ID')
+    Cypress.env("organizationID")
   ).then(() => {
     const boardId = TestState.getInstance().getBoardId();
     if (boardId) {
       return fetchOrCreateResource("List", apiKey, apiToken, boardId);
     } else {
-      throw new Error("Board ID não encontrado.");
+      throw new Error(
+        "Board ID não encontrado. Certifique-se de que o board foi criado corretamente."
+      );
     }
   });
 }
@@ -114,7 +120,6 @@ export function deleteAllBoards(
   });
 }
 
-// Função para deletar todos os cards em uma lista
 export function deleteAllCards(
   apiKey: string,
   apiToken: string,

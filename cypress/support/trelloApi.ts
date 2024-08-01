@@ -1,5 +1,4 @@
 export class TrelloApi {
-  // Método genérico para realizar requisições à API do Trello
   static createResource<T>(
     method: 'POST' | 'GET' | 'DELETE',
     endpoint: string,
@@ -16,7 +15,6 @@ export class TrelloApi {
     });
   }
 
-  // Método para criar um novo quadro (board)
   static createBoard(
     apiKey: string,
     apiToken: string,
@@ -29,18 +27,15 @@ export class TrelloApi {
     });
   }
 
-  // Método para ler todos os quadros de uma organização
   static readBoards(apiKey: string, apiToken: string): Cypress.Chainable<any> {
-    const organizationID = Cypress.env('CYPRESS_ORG_ID');
     return this.createResource(
       'GET',
-      `/organizations/${organizationID}/boards`,
+      `/organizations/${Cypress.env('organizationID')}/boards`,
       apiKey,
       apiToken
     );
   }
 
-  // Método para criar uma nova lista em um quadro
   static createList(
     apiKey: string,
     apiToken: string,
@@ -53,7 +48,6 @@ export class TrelloApi {
     });
   }
 
-  // Método para ler todas as listas de um quadro
   static readLists(
     apiKey: string,
     apiToken: string,
@@ -67,7 +61,6 @@ export class TrelloApi {
     );
   }
 
-  // Método para criar um novo cartão em uma lista
   static createCard(
     apiKey: string,
     apiToken: string,
@@ -80,7 +73,6 @@ export class TrelloApi {
     });
   }
 
-  // Método para ler todos os cartões de uma lista
   static readCards(
     apiKey: string,
     apiToken: string,
@@ -94,7 +86,6 @@ export class TrelloApi {
     );
   }
 
-  // Método para deletar um cartão
   static deleteCard(
     apiKey: string,
     apiToken: string,
@@ -103,12 +94,16 @@ export class TrelloApi {
     return this.createResource('DELETE', `/cards/${cardId}`, apiKey, apiToken);
   }
 
-  // Método para deletar um quadro
   static deleteBoard(
     apiKey: string,
     apiToken: string,
     boardId: string
   ): Cypress.Chainable<any> {
-    return this.createResource('DELETE', `/boards/${boardId}`, apiKey, apiToken);
+    return this.createResource(
+      'DELETE',
+      `/boards/${boardId}`,
+      apiKey,
+      apiToken
+    );
   }
 }
