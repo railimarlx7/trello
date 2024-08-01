@@ -20,8 +20,15 @@ jobs:
 
       - name: Install dependencies
         run: yarn install
+      - name: CYPRESS_API_KEY
+        run: echo "${{ secrets.CYPRESS_API_KEY }}"
+      - name: CYPRESS_API_TOKEN
+        run: echo "${{ secrets.CYPRESS_API_TOKEN }}"
+      - name: CYPRESS_ORG_ID
+        run: echo "${{ secrets.CYPRESS_ORG_ID }}"
 
       - name: Run Cypress tests
+        
         env:
           CYPRESS_API_KEY: ${{ secrets.CYPRESS_API_KEY }}
           CYPRESS_API_TOKEN: ${{ secrets.CYPRESS_API_TOKEN }}
