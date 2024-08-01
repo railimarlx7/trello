@@ -4,12 +4,6 @@ jobs:
   tests:
     runs-on: ubuntu-20.04
     steps:
-      - name: Checkout 🛎
-        uses: actions/checkout@v3
-
-      - name: cypress.env.json
-        run: |
-          echo '${{ secrets.CYPRESS_ENV_CI }}' > cypress.env.json
       - name: Cypress run 🚀
         uses: cypress-io/github-action@v3
         
@@ -20,4 +14,3 @@ jobs:
         with:
           name: cypress-screenshots
           path: cypress/screenshots
-          
